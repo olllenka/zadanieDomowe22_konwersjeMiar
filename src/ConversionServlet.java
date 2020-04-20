@@ -23,7 +23,7 @@ public class ConversionServlet extends HttpServlet {
 
             writer.println("podane wartości: " + metre + ", " + centimetre + ", " + millimetre );
 
-            if (tooManyValues(metre, centimetre, millimetre))
+            if (isTooManyFieldsFilled(metre, centimetre, millimetre))
                 writer.println("<h1>Należy wypełnić tylko jedno pole!</h1>");
             else {
                 MetricConversion metricConversion = new MetricConversion(metre, centimetre, millimetre);
@@ -41,7 +41,7 @@ public class ConversionServlet extends HttpServlet {
 
             writer.println("podane wartości wagi: " + kilogram + ", " + gram + ", " + milligram);
 
-            if (tooManyValues(kilogram, gram, milligram))
+            if (isTooManyFieldsFilled(kilogram, gram, milligram))
                 writer.println("<h1>Należy wypełnić tylko jedno pole!</h1>");
             else {
                 WeightConversion weightConversion = new WeightConversion(kilogram, gram, milligram);
@@ -53,12 +53,7 @@ public class ConversionServlet extends HttpServlet {
         }
     }
 
-    private boolean tooManyValues(String value1, String value2, String value3) {
-        if((!value1.isEmpty() && !value2.isEmpty()) || (!value2.isEmpty() && !value3.isEmpty()) || (!value1.isEmpty() && !value3.isEmpty())){
-            return true;
-        }
-        else{
-            return false;
-        }
+    private boolean isTooManyFieldsFilled(String firstFieldValue, String secondFieldValue, String thirdFieldValue) {
+        return((!firstFieldValue.isEmpty() && !secondFieldValue.isEmpty()) || (!secondFieldValue.isEmpty() && !thirdFieldValue.isEmpty()) || (!firstFieldValue.isEmpty() && !thirdFieldValue.isEmpty()));
     }
 }
